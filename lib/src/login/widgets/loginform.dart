@@ -6,7 +6,7 @@ import 'package:deersolo/config/theme.dart' as custom_theme;
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
-//
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
@@ -167,11 +167,14 @@ class _LoginFormState extends State<LoginForm> {
         print('mai me data send!');
       }else{
         showLoading();
-        Future.delayed(Duration(seconds: 2)).then((value){
+        Future.delayed(const Duration(seconds: 2)).then((value){
           Navigator.pop(context);
           if(username == 'deer@ceo.th' && password == '12345678'){
             showAlertBarOk();
             print('login successfully');
+            setState(() {
+
+            });
           }
           else{
             showAlertBar();
@@ -206,6 +209,15 @@ class FormInput extends StatefulWidget {
 }
 
 class _FormInputState extends State<FormInput> {
+  late bool _obscureTextPassword;
+  final _passwordFocusNode = FocusNode();
+
+  @override
+  void initState(){
+    _obscureTextPassword = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -229,9 +241,15 @@ class _FormInputState extends State<FormInput> {
             ),
           errorText: widget.errorUser,
         ),
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (String value){
+          FocusScope.of(context).requestFocus(_passwordFocusNode);
+      },
       );
 
   TextField _buildPassword() => TextField(
+    focusNode: _passwordFocusNode,
       controller: widget.passwordController,
         decoration: InputDecoration(
             border: InputBorder.none,
@@ -242,7 +260,19 @@ class _FormInputState extends State<FormInput> {
               color: Colors.black54,
             ),
           errorText: widget.errorPasswd,
+          suffix: IconButton(
+            icon: FaIcon(_obscureTextPassword
+                ? FontAwesomeIcons.eye
+                : FontAwesomeIcons.eyeSlash,
+                color: Colors.black54,
+                size: 15.0,
+            ),
+            onPressed: () {
+              setState((){
+                _obscureTextPassword = !_obscureTextPassword;
+              });
+            }),
         ),
-        obscureText: true,
+        obscureText: _obscureTextPassword,
       );
 }

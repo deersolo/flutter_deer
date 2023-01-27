@@ -12,7 +12,7 @@ class Header extends StatelessWidget {
       margin: const EdgeInsets.only(top: 50, bottom: 38),
       child: Image.asset(
         Asset.LOGO_IMAGE,
-        height: 270,
+        height: 220,
       ),
     );
   }

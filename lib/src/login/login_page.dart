@@ -21,24 +21,7 @@ class LoginPage extends StatelessWidget {
             children: const [
               Header(),
               LoginForm(),
-              IconButton(
-                icon: FaIcon(FontAwesomeIcons.camera),
-                onPressed: null, // null disables the button
-              ),
-              IconButton(
-                icon: Icon(Icons.gamepad),
-                color: Colors.yellow,
-                onPressed: null,
-              ),
-              IconButton(
-                icon: Icon(Icons.menu),
-                color: Colors.yellow,
-                onPressed: null,
-              ),
-              Text('Hello World'),
-              Text('DEER3'),
-              Text('DEER4'),
-              Text('DEER5'),
+
             ],
           ),
         ],
