@@ -1,6 +1,7 @@
-
+import 'package:deersolo/src/viewmodels/single_sign_on_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SingleSignOn extends StatelessWidget {
   const SingleSignOn({Key? key}) : super(key: key);
@@ -9,7 +10,9 @@ class SingleSignOn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildDivider()
+        _buildDivider(),
+        SizedBox(height: 12),
+        _buildSingleSignOnButton()
       ],
     );
   }
@@ -45,4 +48,22 @@ class SingleSignOn extends StatelessWidget {
     ]
   );
   }
+
+  Padding _buildSingleSignOnButton() => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: SingleSignOnViewModel().items.map(
+              (item) => FloatingActionButton(
+                heroTag: item.icon,
+                onPressed: item.onPress,
+                backgroundColor: item.backgroundColor,
+                child: FaIcon(
+                  item.icon,
+                  color: Colors.white,
+                ),
+              ),
+      ).toList(),
+    ),
+  );
 }

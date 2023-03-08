@@ -22,9 +22,12 @@ class LoginPage extends StatelessWidget {
             children: const [
               Header(),
               LoginForm(),
-              Text('data'),
+              SizedBox(height: 12),
+              Text('Forgot Password'),
+              SizedBox(height: 12),
               SingleSignOn(),
-              Text('data2'),
+              SizedBox(height: 12),
+              Text('Register'),
 
             ],
           ),
