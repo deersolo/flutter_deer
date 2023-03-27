@@ -1,6 +1,6 @@
-import 'package:deersolo/src/login/widgets/header.dart';
-import 'package:deersolo/src/login/widgets/loginform.dart';
-import 'package:deersolo/src/login/widgets/single_sign_on.dart';
+import 'package:deersolo/src/pages/login/widgets/header.dart';
+import 'package:deersolo/src/pages/login/widgets/loginform.dart';
+import 'package:deersolo/src/pages/login/widgets/single_sign_on.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:deersolo/config/theme.dart' as custom_theme;

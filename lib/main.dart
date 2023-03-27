@@ -1,5 +1,5 @@
 
-import 'package:deersolo/src/login/login_page.dart';
+import 'package:deersolo/src/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
