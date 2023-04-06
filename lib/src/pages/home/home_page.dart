@@ -1,20 +1,24 @@
+import 'package:deersolo/src/pages/home/widgets/custom_drawer.dart';
 import 'package:deersolo/src/pages/login/widgets/header.dart';
 import 'package:deersolo/src/pages/login/widgets/loginform.dart';
 import 'package:flutter/material.dart';
 import 'package:deersolo/src/pages/login/login_page.dart';
 
-class Homepage extends StatelessWidget {
-  // In the constructor, require a Todo.
-  const Homepage({super.key, required this.name, required this.age});
-
-  // Declare a field that holds the Todo.
-  final String name;
-  final int age;
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Use the Todo to create the UI.
+
+    var name = 'DEER555';
+    var age = 0;
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Stock Workshop'),
+      ),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           Header(),
@@ -32,14 +36,14 @@ class Homepage extends StatelessWidget {
 
   TextButton _buildTextButton(String text, {
     required VoidCallback onPressed,
-    double fontSize = 14,
+    double fontSize = 16,
   }) =>
       TextButton(
         onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.green,
+            color: Colors.black,
             fontSize: fontSize,
             fontWeight: FontWeight.normal,
           ),

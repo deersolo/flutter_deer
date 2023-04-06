@@ -1,6 +1,9 @@
-
+import 'package:deersolo/src/constants/setting.dart';
+import 'package:deersolo/src/pages/home/home_page.dart';
 import 'package:deersolo/src/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:deersolo/config/route.dart' as custom_route;
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: MaterialApp(
+        routes: custom_route.Route.getAll(),
         title: 'Flutter Demo',
         theme: ThemeData(
           // This is the theme of your application.
@@ -28,7 +32,20 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        home: const LoginPage(),
+        home: FutureBuilder<SharedPreferences>(
+          future: SharedPreferences.getInstance(),
+          builder: (BuildContext context,
+              AsyncSnapshot<SharedPreferences> snapshot) {
+            if (snapshot.hasData) {
+              final token = snapshot.data?.getString(Setting.TOKEN_PREF) ?? '';
+              if (token.isNotEmpty) {
+                return HomePage();
+              }
+              return LoginPage();
+            }
+           return SizedBox();
+          },
+        ),
       ),
     );
   }
@@ -75,13 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        body: Column(
-          children: [
-            Image.network('https://f.ptcdn.info/855/065/000/pxg5sj1lg58inlAHK8bz-o.jpg'),
-            //Image.asset(Asset.LOGO_IMAGE),
-          ],
-        ),
-
+      body: Column(
+        children: [
+          Image.network(
+              'https://f.ptcdn.info/855/065/000/pxg5sj1lg58inlAHK8bz-o.jpg'),
+          //Image.asset(Asset.LOGO_IMAGE),
+        ],
+      ),
     );
   }
 }
