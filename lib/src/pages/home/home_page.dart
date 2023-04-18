@@ -11,8 +11,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the Todo to create the UI.
 
-    var name = 'DEER555';
-    var age = 0;
+    var name = 'DEERSOLO';
+    var age = 38;
 
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           Text(name),
           Text(age.toString()),
           _buildTextButton('<< BACK', onPressed: () {
-            if(Navigator.canPop(context)){
+            if (Navigator.canPop(context)) {
               Navigator.pop(context);
             }
           }),
@@ -34,7 +34,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  TextButton _buildTextButton(String text, {
+  TextButton _buildTextButton(
+    String text, {
     required VoidCallback onPressed,
     double fontSize = 16,
   }) =>
