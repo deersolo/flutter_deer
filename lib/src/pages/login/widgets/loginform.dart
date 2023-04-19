@@ -190,7 +190,7 @@ class _LoginFormState extends State<LoginForm> {
       showLoading();
       Future.delayed(Duration(seconds: 2)).then((value) async {
         Navigator.pop(context);
-        if (username == 'deer@tec.th' && password == '1234') {
+        if (username == 'deer@gtec.th' && password == '1234') {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString(Setting.TOKEN_PREF, 'asdygjntuirdt4sadssssr456745bfdhftd');
           prefs.setString(Setting.USERNAME_PREF, username);
