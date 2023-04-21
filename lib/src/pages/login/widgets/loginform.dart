@@ -48,15 +48,14 @@ class _LoginFormState extends State<LoginForm> {
     ]);
   }
 
-  Card _buildForm() =>
-      Card(
+  Card _buildForm() => Card(
         margin: const EdgeInsets.only(bottom: 22, left: 22, right: 22),
         elevation: 2.0,
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: Padding(
           padding:
-          const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 60),
+              const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 60),
           child: FormInput(
             usernameController: usernameController,
             passwordController: passwordController,
@@ -66,27 +65,25 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
 
-  Container _buildSubmitButton() =>
-      Container(
-          width: 220,
-          height: 50,
-          decoration: _boxDecoration(),
-          child: TextButton(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            ),
-            onPressed: _onLogin,
-            child: const Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ));
+  Container _buildSubmitButton() => Container(
+      width: 220,
+      height: 50,
+      decoration: _boxDecoration(),
+      child: TextButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+        onPressed: _onLogin,
+        child: const Text(
+          'Login',
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ));
 
-  BoxDecoration _boxDecoration() =>
-      BoxDecoration(
+  BoxDecoration _boxDecoration() => BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         boxShadow: [
           boxShadowItem(gradienStart),
@@ -103,8 +100,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
 
-  BoxShadow boxShadowItem(Color color) =>
-      BoxShadow(
+  BoxShadow boxShadowItem(Color color) => BoxShadow(
         color: color,
         offset: const Offset(1.0, 6.0),
         blurRadius: 20.0,
@@ -131,7 +127,7 @@ class _LoginFormState extends State<LoginForm> {
           color: Colors.blue[500],
         ),
       ),
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     ).show(context);
   }
 
@@ -156,7 +152,7 @@ class _LoginFormState extends State<LoginForm> {
           color: Colors.green[500],
         ),
       ),
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     ).show(context);
   }
 
@@ -188,21 +184,14 @@ class _LoginFormState extends State<LoginForm> {
       print('mai me data send!');
     } else {
       showLoading();
-      Future.delayed(Duration(seconds: 2)).then((value) async {
+      Future.delayed(Duration(seconds: 1)).then((value) async {
         Navigator.pop(context);
         if (username == 'deer@gtec.th' && password == '1234') {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString(Setting.TOKEN_PREF, 'asdygjntuirdt4sadssssr456745bfdhftd');
+          prefs.setString(
+              Setting.TOKEN_PREF, 'asdygjntuirdt4sadssssr456745bfdhftd');
           prefs.setString(Setting.USERNAME_PREF, username);
-
           Navigator.pushReplacementNamed(context, custom_route.Route.home);
-
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => HomePage(name: 'SAKSORN', age: 38),
-          //   ),
-          // );
         } else {
           showAlertBar();
           setState(() {});
@@ -255,8 +244,7 @@ class _FormInputState extends State<FormInput> {
     );
   }
 
-  TextField _buildUsername() =>
-      TextField(
+  TextField _buildUsername() => TextField(
         controller: widget.usernameController,
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -276,8 +264,7 @@ class _FormInputState extends State<FormInput> {
         },
       );
 
-  TextField _buildPassword() =>
-      TextField(
+  TextField _buildPassword() => TextField(
         focusNode: _passwordFocusNode,
         controller: widget.passwordController,
         decoration: InputDecoration(
