@@ -3,7 +3,7 @@ import 'package:deersolo/src/pages/login/widgets/loginform.dart';
 import 'package:deersolo/src/pages/login/widgets/single_sign_on.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:deersolo/config/theme.dart' as custom_theme;
+import 'package:deersolo/src/config/theme.dart' as custom_theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatelessWidget {

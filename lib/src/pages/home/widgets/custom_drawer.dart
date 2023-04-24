@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:deersolo/src/constants/setting.dart';
+import 'package:deersolo/src/viewmodels/menu_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:deersolo/config/route.dart' as custom_route;
+import 'package:deersolo/src/config/route.dart' as custom_route;
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -15,20 +18,27 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
+    var a = [1,2,3,4];
+    var b = [5,6,7,8];
+    var c = [...b,...a];
     return Drawer(
         child: Column(children: [
-      Spacer(),
-      ListTile(
-        leading: FaIcon(
-          FontAwesomeIcons.signOutAlt,
-          color: Colors.grey,
-        ),
-        title: TextButton(
-          onPressed: () => showDialogLogout(context),
-          child: const Text('Logout'),
-        ),
-      ),
-    ]));
+          _buildProfile(),
+          ..._buildMainMenu(),
+
+          Spacer(),
+          ListTile(
+            leading: FaIcon(
+              FontAwesomeIcons.signOutAlt,
+              color: Colors.grey,
+            ),
+            title: TextButton(
+              onPressed: () => showDialogLogout(context),
+              child: Text('Logout'),
+
+            ),
+          ),
+        ]));
   }
 
   void showDialogLogout(BuildContext context) {
@@ -42,7 +52,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(dialogContext).textTheme.labelLarge,
+                textStyle: Theme
+                    .of(dialogContext)
+                    .textTheme
+                    .labelLarge,
               ),
               child: const Text('Yes'),
               onPressed: () {
@@ -53,14 +66,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     custom_route.Route.login,
-                    (route) => false,
+                        (route) => false,
                   );
                 });
               },
             ),
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(dialogContext).textTheme.labelLarge,
+                textStyle: Theme
+                    .of(dialogContext)
+                    .textTheme
+                    .labelLarge,
               ),
               child: const Text('Cancel'),
               onPressed: () {
@@ -72,4 +88,39 @@ class _CustomDrawerState extends State<CustomDrawer> {
       },
     );
   }
+
+  UserAccountsDrawerHeader _buildProfile() =>
+      UserAccountsDrawerHeader(
+        accountName: Text('Deer Solo'),
+        accountEmail: Text('deer@gtec.th'),
+        currentAccountPicture: CircleAvatar(
+          backgroundImage: NetworkImage(
+              'https://cdn-images-1.medium.com/max/280/1*X5PBTDQQ2Csztg3a6wofIQ@2x.png'),
+        ),
+      );
+
+  List<ListTile> _buildMainMenu() =>
+      MenuViewModel()
+          .items
+          .map(
+            (item) =>
+            ListTile(
+              title: Text(
+                item.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18.0,
+                ),
+              ),
+              leading: FaIcon(
+                item.icon,
+                color: item.iconColor,
+              ),
+              onTap: ()
+              {
+                item.onTap(context);
+              }
+            ),
+        )
+          .toList();
 }

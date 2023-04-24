@@ -2,7 +2,7 @@ import 'package:deersolo/src/constants/setting.dart';
 import 'package:deersolo/src/pages/home/home_page.dart';
 import 'package:deersolo/src/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:deersolo/config/route.dart' as custom_route;
+import 'package:deersolo/src/config/route.dart' as custom_route;
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

@@ -3,8 +3,8 @@ import 'package:deersolo/src/constants/setting.dart';
 import 'package:deersolo/src/utils/RegexValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:deersolo/config/theme.dart' as custom_theme;
-import 'package:deersolo/config/route.dart' as custom_route;
+import 'package:deersolo/src/config/theme.dart' as custom_theme;
+import 'package:deersolo/src/config/route.dart' as custom_route;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
