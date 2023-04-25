@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:deersolo/src/config/route.dart' as custom_route;
+import 'package:badges/badges.dart' as badges;
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -112,9 +113,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   fontSize: 18.0,
                 ),
               ),
-              leading: FaIcon(
-                item.icon,
-                color: item.iconColor,
+              leading: badges.Badge(
+                showBadge: item.icon == FontAwesomeIcons.inbox,
+                badgeContent: Text('99', style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                )),
+                child: FaIcon(
+                  item.icon,
+                  color: item.iconColor,
+                ),
               ),
               onTap: ()
               {

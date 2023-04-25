@@ -11,25 +11,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use the Todo to create the UI.
 
-    var name = 'DEERSOLO';
-    var age = 38;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Stock Workshop'),
-      ),
-      drawer: CustomDrawer(),
-      body: Column(
-        children: [
-          Header(),
-          Text(name),
-          Text(age.toString()),
-          _buildTextButton('<< BACK', onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          }),
-        ],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Stock Workshop'),
+        ),
+        drawer: CustomDrawer(),
+        body: TabBarView(
+          children: [
+            FlutterLogo(style: FlutterLogoStyle.horizontal),
+            FlutterLogo(style: FlutterLogoStyle.stacked),
+            FlutterLogo(),
+          ],
+        ),
       ),
     );
   }
