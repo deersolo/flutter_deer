@@ -1,11 +1,14 @@
+import 'package:deersolo/src/constants/api.dart';
+import 'package:deersolo/src/models/product.dart';
 import 'package:deersolo/src/utils/format.dart';
 import 'package:deersolo/src/widgets/image_not_found.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
   final double maxHeight;
+  final Product product;
 
-  const ProductItem(this.maxHeight, {Key? key}) : super(key: key);
+  const ProductItem(this.maxHeight, {Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +30,18 @@ class ProductItem extends StatelessWidget {
 
   Stack _buildImage() {
     final height = maxHeight * 0.7;
-    final productImage =
-        'https://f.btwcdn.com/store-46537/product/666c36d4-c4b6-ceea-a615-61abb4326fd4.jpg';
-    final stock = 0;
+    final productImage = product.image;
+
 
     return Stack(children: [
       SizedBox(
         width: double.infinity,
         height: height,
         child: productImage != null && productImage.isNotEmpty
-            ? Image.network(productImage)
+            ? Image.network('${API.IMAGE_URL}/$productImage')
             : ImageNotFound(),
       ),
-      if (stock < 1)
+      if (product.stock < 1)
         _buildOutOfStock(),
     ]);
   }
@@ -52,7 +54,7 @@ class ProductItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Lorem Ipsum .',
+                product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -60,13 +62,13 @@ class ProductItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '฿${formatCurrency.format(111)}',
+                    '฿${formatCurrency.format(product.price)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    '${formatNumber.format(999)} pieces',
+                    '${formatNumber.format(product.stock)} pieces',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.deepOrangeAccent,
