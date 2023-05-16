@@ -1,8 +1,11 @@
-import 'package:deersolo/src/models/post.dart';
+
 import 'package:deersolo/src/models/product.dart';
 import 'package:deersolo/src/pages/home/widgets/ProductItem.dart';
 import 'package:deersolo/src/services/network_service.dart';
+import 'package:deersolo/src/config/route.dart' as custom_route;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Stock extends StatefulWidget {
   const Stock({Key? key}) : super(key: key);
@@ -16,6 +19,18 @@ class _StockState extends State<Stock> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: _buildNetwork(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, custom_route.Route.management);
+        },
+        child: FaIcon(FontAwesomeIcons.plus),
+      ),
+    );
+  }
+
+  FutureBuilder<List<Product>> _buildNetwork() {
     return FutureBuilder<List<Product>>(
       future: NetworkService().getAllProduct(),
       builder: (context, snapshot) {
@@ -30,15 +45,15 @@ class _StockState extends State<Stock> {
           }
           return RefreshIndicator(
               onRefresh: () async {
-                setState(() {
-
-                });
+                setState(() {});
               },
               child: _buildProductGridView(product));
         }
         if (snapshot.hasError) {
-          return Center(
-            child: Text(snapshot.error.toString()),
+          return Container(
+            margin: EdgeInsets.only(top: 22),
+            alignment: Alignment.topCenter,
+            child: Text((snapshot.error as DioError).message.toString()),
           );
         }
         return Center(
@@ -60,7 +75,10 @@ class _StockState extends State<Stock> {
       ),
       itemBuilder: (context, index) => LayoutBuilder(
         builder: (context, BoxConstraints constraints) {
-          return ProductItem(constraints.maxHeight, product: product[index],);
+          return ProductItem(
+            constraints.maxHeight,
+            product: product[index],
+          );
         },
       ),
       itemCount: product.length,

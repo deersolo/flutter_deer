@@ -41,7 +41,7 @@ class ProductItem extends StatelessWidget {
             ? Image.network('${API.IMAGE_URL}/$productImage')
             : ImageNotFound(),
       ),
-      if (product.stock < 1)
+      if (product.stock! < 1)
         _buildOutOfStock(),
     ]);
   }
@@ -54,7 +54,7 @@ class ProductItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                product.name,
+                product.name as String,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
