@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:deersolo/src/models/product.dart';
+import 'package:deersolo/src/pages/management/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 
 class ManagementPage extends StatefulWidget {
@@ -58,7 +58,8 @@ class _ManagementPageState extends State<ManagementPage> {
                       flex: 1,
                     ),
                   ],
-                )
+                ),
+                ProductImage(),
               ],
             ),
           ),
