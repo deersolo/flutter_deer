@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.deersolo.mystock.deersolo">
    <application
         android:requestLegacyExternalStorage="true"
@@ -32,10 +33,18 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+           tools:ignore="MissingClass" />
+
     </application>
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
+
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

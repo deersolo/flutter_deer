@@ -73,3 +73,8 @@ dependencies {
 buildscript {
     ext.kotlin_version = '1.6.10'
 }
+allprojects {
+    tasks.withType(JavaCompile){
+        options.compilerArgs <<"-Xlint:deprecation"
+    }
+}
