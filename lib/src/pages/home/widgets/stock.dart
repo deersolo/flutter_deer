@@ -23,7 +23,11 @@ class _StockState extends State<Stock> {
       body: _buildNetwork(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, custom_route.Route.management);
+          Navigator.pushNamed(context, custom_route.Route.management).then((value) {
+            setState(() {
+
+            });
+          });
         },
         child: FaIcon(FontAwesomeIcons.plus),
       ),
@@ -69,7 +73,7 @@ class _StockState extends State<Stock> {
           left: _spacing, right: _spacing, top: _spacing, bottom: 150),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.7,
         crossAxisSpacing: _spacing,
         mainAxisSpacing: _spacing,
       ),

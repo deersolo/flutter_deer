@@ -5,7 +5,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductImage extends StatefulWidget {
-  const ProductImage({Key? key}) : super(key: key);
+  final Function(File imageFile) callBack;
+  ProductImage(this.callBack);
 
   @override
   State<ProductImage> createState() => _ProductImageState();
@@ -13,8 +14,8 @@ class ProductImage extends StatefulWidget {
 
 class _ProductImageState extends State<ProductImage> {
   final _picker = ImagePicker();
-  late File _imageFile;
-  String? check;
+  File? _imageFile;
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class _ProductImageState extends State<ProductImage> {
       label: Text('image'));
 
   dynamic _buildPreviewImage() {
-    if (check == null) {
+    if (_imageFile == null) {
       debugPrint('_imageFile = null');
       return SizedBox();
     } else {
@@ -53,7 +54,7 @@ class _ProductImageState extends State<ProductImage> {
 
       return Stack(
         children: [
-          container(Image.file(_imageFile)),
+          container(Image.file(_imageFile!)),
           _buildDeleteImageButton(),
         ],
       );
@@ -83,7 +84,6 @@ class _ProductImageState extends State<ProductImage> {
               onTap: () {
                 Navigator.pop(context);
                 _pickImages(ImageSource);
-                check = '1';
               },
             );
 
@@ -93,14 +93,14 @@ class _ProductImageState extends State<ProductImage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           buildListTile(
-            Icons.photo_camera,
-            "Take a picture from camera",
-            ImageSource.camera,
-          ),
-          buildListTile(
             Icons.photo_library,
             "Choose from photo library",
             ImageSource.gallery,
+          ),
+          buildListTile(
+            Icons.photo_camera,
+            "Take a picture from camera",
+            ImageSource.camera,
           ),
         ],
       ),
@@ -114,7 +114,8 @@ class _ProductImageState extends State<ProductImage> {
       imageQuality: 70,
       maxHeight: 500,
       maxWidth: 500,
-    ).then((file) {
+    )
+        .then((file) {
       if (file != null) {
         _cropImage(file.path);
       }
@@ -146,6 +147,7 @@ class _ProductImageState extends State<ProductImage> {
       if (file != null) {
         setState(() {
           _imageFile = File(file.path);
+          widget.callBack(_imageFile!);
         });
       }
     });

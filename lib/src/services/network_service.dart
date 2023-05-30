@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:deersolo/src/constants/api.dart';
 import 'package:deersolo/src/models/post.dart';
 import 'package:deersolo/src/models/product.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:http_parser/http_parser.dart';
 
 class NetworkService {
   NetworkService._internal();
@@ -38,7 +39,28 @@ class NetworkService {
     }
     throw Exception('Network Failed');
   }
+  Future<String> addProduct(Product product, {required File imageFile}) async {
+    final url = API.PRODUCT;
 
+    FormData data = FormData.fromMap({
+      'name': product.name,
+      'price': product.price,
+      'stock': product.stock,
+      if(imageFile != null)
+        'photo': await MultipartFile.fromFile(
+          imageFile.path,
+          contentType: MediaType('image', 'jpg')
+        )
+    });
+
+    final Response response = await _dio.post(url, data: data);
+    if (response.statusCode == 201) {
+      return "ADD OK .......";
+    }
+    throw Exception('Network Failed');
+  }
+
+  /////////////////////////////do not use///////////////////////////////////////////////////////
   Future<List<Post>> fetchPosts(int startIndex, {int limit = 10}) async {
     final url = 'https://jsonplaceholder.typicode.com/posts?_start=1&_limit=9';
     final Response response = await _dio.get(url);

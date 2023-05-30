@@ -1,7 +1,11 @@
 import 'dart:io';
+
+import 'package:another_flushbar/flushbar.dart';
 import 'package:deersolo/src/models/product.dart';
 import 'package:deersolo/src/pages/management/widgets/product_image.dart';
+import 'package:deersolo/src/services/network_service.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManagementPage extends StatefulWidget {
   const ManagementPage({Key? key}) : super(key: key);
@@ -59,11 +63,17 @@ class _ManagementPageState extends State<ManagementPage> {
                     ),
                   ],
                 ),
-                ProductImage(),
+                ProductImage(
+                  callBack,
+                ),
               ],
             ),
           ),
         ));
+  }
+
+  callBack(File imageFile) {
+    this._imageFile = imageFile;
   }
 
   AppBar _buildAppBar() {
@@ -76,6 +86,8 @@ class _ManagementPageState extends State<ManagementPage> {
             print(_product.name);
             print(_product.price.toString());
             print(_product.stock.toString());
+
+            addProduct();
           },
           child: Text(
             'submit',
@@ -132,4 +144,32 @@ class _ManagementPageState extends State<ManagementPage> {
           }
         },
       );
+
+  void addProduct() {
+    NetworkService().addProduct(_product, imageFile: _imageFile!).then((result) {
+      Navigator.pop(context);
+      showAlertBar(result);
+    }).catchError((error) {
+      showAlertBar(error.toString(),
+          icon: FontAwesomeIcons.timesCircle, color: Colors.red);
+    });
+  }
+
+  void showAlertBar(
+    String message, {
+    IconData icon = FontAwesomeIcons.checkCircle,
+    Color color = Colors.green,
+  }) {
+    Flushbar(
+      message: message,
+      icon: FaIcon(
+        icon,
+        size: 28.0,
+        color: color,
+      ),
+      flushbarPosition: FlushbarPosition.TOP,
+      duration: Duration(seconds: 3),
+      flushbarStyle: FlushbarStyle.GROUNDED,
+    )..show(context);
+  }
 }
