@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ProductImage extends StatefulWidget {
   final Function(File imageFile) callBack;
-  ProductImage(this.callBack);
+  const ProductImage(this.callBack);
 
   @override
   State<ProductImage> createState() => _ProductImageState();
@@ -40,7 +40,7 @@ class _ProductImageState extends State<ProductImage> {
 
   dynamic _buildPreviewImage() {
     if (_imageFile == null) {
-      debugPrint('_imageFile = null');
+      debugPrint(_imageFile as String?);
       return SizedBox();
     } else {
       debugPrint('_imageFile = >> new path');

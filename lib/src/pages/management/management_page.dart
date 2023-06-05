@@ -86,6 +86,7 @@ class _ManagementPageState extends State<ManagementPage> {
             print(_product.name);
             print(_product.price.toString());
             print(_product.stock.toString());
+            print(_imageFile.toString());
 
             addProduct();
           },
@@ -146,7 +147,9 @@ class _ManagementPageState extends State<ManagementPage> {
       );
 
   void addProduct() {
-    NetworkService().addProduct(_product, imageFile: _imageFile!).then((result) {
+    NetworkService()
+        .addProduct(imageFile: _imageFile, product: _product)
+        .then((result) {
       Navigator.pop(context);
       showAlertBar(result);
     }).catchError((error) {

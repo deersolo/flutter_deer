@@ -39,7 +39,7 @@ class NetworkService {
     }
     throw Exception('Network Failed');
   }
-  Future<String> addProduct(Product product, {required File imageFile}) async {
+  Future<String> addProduct({required Product product, File? imageFile} ) async {
     final url = API.PRODUCT;
 
     FormData data = FormData.fromMap({
@@ -48,7 +48,7 @@ class NetworkService {
       'stock': product.stock,
       if(imageFile != null)
         'photo': await MultipartFile.fromFile(
-          imageFile.path,
+            imageFile.path,
           contentType: MediaType('image', 'jpg')
         )
     });
