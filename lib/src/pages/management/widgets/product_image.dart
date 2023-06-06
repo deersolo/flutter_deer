@@ -5,7 +5,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductImage extends StatefulWidget {
-  final Function(File imageFile) callBack;
+  final Function(File? imageFile) callBack;
+
   const ProductImage(this.callBack);
 
   @override
@@ -15,7 +16,6 @@ class ProductImage extends StatefulWidget {
 class _ProductImageState extends State<ProductImage> {
   final _picker = ImagePicker();
   File? _imageFile;
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,10 @@ class _ProductImageState extends State<ProductImage> {
         right: 0,
         child: IconButton(
           onPressed: () {
-            //todo
+            setState(() {
+              _imageFile = null;
+              widget.callBack(null);
+            });
           },
           icon: Icon(
             Icons.clear,

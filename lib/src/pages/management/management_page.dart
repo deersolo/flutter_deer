@@ -72,7 +72,7 @@ class _ManagementPageState extends State<ManagementPage> {
         ));
   }
 
-  callBack(File imageFile) {
+  callBack(File? imageFile) {
     this._imageFile = imageFile;
   }
 
