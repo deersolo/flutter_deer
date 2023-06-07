@@ -1,4 +1,3 @@
-
 import 'package:deersolo/src/models/product.dart';
 import 'package:deersolo/src/pages/home/widgets/ProductItem.dart';
 import 'package:deersolo/src/services/network_service.dart';
@@ -23,10 +22,9 @@ class _StockState extends State<Stock> {
       body: _buildNetwork(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, custom_route.Route.management).then((value) {
-            setState(() {
-
-            });
+          Navigator.pushNamed(context, custom_route.Route.management)
+              .then((value) {
+            setState(() {});
           });
         },
         child: FaIcon(FontAwesomeIcons.plus),
@@ -67,7 +65,7 @@ class _StockState extends State<Stock> {
     );
   }
 
-  GridView _buildProductGridView(List<Product> product) {
+  GridView _buildProductGridView(List<Product> products) {
     return GridView.builder(
       padding: EdgeInsets.only(
           left: _spacing, right: _spacing, top: _spacing, bottom: 150),
@@ -79,13 +77,22 @@ class _StockState extends State<Stock> {
       ),
       itemBuilder: (context, index) => LayoutBuilder(
         builder: (context, BoxConstraints constraints) {
+          final product = products[index];
           return ProductItem(
             constraints.maxHeight,
-            product: product[index],
+              product,
+            onTap: () {
+              Navigator.pushNamed(context, custom_route.Route.management,
+                  arguments: product).then((value) {
+                    setState(() {
+
+                    });
+              });
+            },
           );
         },
       ),
-      itemCount: product.length,
+      itemCount: products.length,
     );
   }
 }

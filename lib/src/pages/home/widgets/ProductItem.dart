@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 class ProductItem extends StatelessWidget {
   final double maxHeight;
   final Product product;
+  final VoidCallback onTap;
 
-  const ProductItem(this.maxHeight, {Key? key, required this.product}) : super(key: key);
+  ProductItem(this.maxHeight, this.product, {super.key, required this.onTap});
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print('deerssssssolo');
-      },
+      onTap: onTap,
       child: Container(
         color: Colors.white,
         child: Column(
@@ -32,7 +32,6 @@ class ProductItem extends StatelessWidget {
     final height = maxHeight * 0.7;
     final productImage = product.image;
 
-
     return Stack(children: [
       SizedBox(
         width: double.infinity,
@@ -41,8 +40,7 @@ class ProductItem extends StatelessWidget {
             ? Image.network('${API.IMAGE_URL}/$productImage')
             : ImageNotFound(),
       ),
-      if (product.stock! < 1)
-        _buildOutOfStock(),
+      if (product.stock! < 1) _buildOutOfStock(),
     ]);
   }
 

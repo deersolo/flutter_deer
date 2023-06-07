@@ -39,6 +39,7 @@ class NetworkService {
     }
     throw Exception('Network Failed');
   }
+
   Future<String> addProduct({required Product product, File? imageFile} ) async {
     final url = API.PRODUCT;
 
@@ -59,6 +60,36 @@ class NetworkService {
     }
     throw Exception('Network Failed');
   }
+  Future<String> editProduct({required Product product, File? imageFile} ) async {
+    final url = '${API.PRODUCT}/${product.id}';
+
+    FormData data = FormData.fromMap({
+      'name': product.name,
+      'price': product.price,
+      'stock': product.stock,
+      if(imageFile != null)
+        'photo': await MultipartFile.fromFile(
+            imageFile.path,
+            contentType: MediaType('image', 'jpg')
+        )
+    });
+
+    final Response response = await _dio.put(url, data: data);
+    if (response.statusCode == 200) {
+      return "Edit Success .......";
+    }
+    throw Exception('Network Failed');
+  }
+
+  Future<String> deleteProduct(int? productId) async {
+    final url = '${API.PRODUCT}/$productId';
+    final Response response = await _dio.delete(url);
+    if (response.statusCode == 204) {
+      return "Delete Success .......";
+    }
+    throw Exception('Network Failed');
+  }
+
 
   /////////////////////////////do not use///////////////////////////////////////////////////////
   Future<List<Post>> fetchPosts(int startIndex, {int limit = 10}) async {
