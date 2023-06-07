@@ -44,38 +44,41 @@ class _ManagementPageState extends State<ManagementPage> {
       _product = arguments;
     }
     return Scaffold(
-        appBar: _buildAppBar(),
-        body: Form(
-          key: _form,
-          child: Padding(
-            padding: EdgeInsets.all(_spacing),
-            child: Column(
-              children: [
-                _buildNameInput(),
-                SizedBox(
-                  height: 8,
-                ),
-                Row(
+          appBar: _buildAppBar(),
+          body: SingleChildScrollView(
+            child: Form(
+              key: _form,
+              child: Padding(
+                padding: EdgeInsets.all(_spacing),
+                child: Column(
                   children: [
-                    Flexible(
-                      child: _buildPriceInput(),
-                      flex: 1,
+                    _buildNameInput(),
+                    SizedBox(
+                      height: 8,
                     ),
-                    SizedBox(width: _spacing),
-                    Flexible(
-                      child: _buildStockInput(),
-                      flex: 1,
+                    Row(
+                      children: [
+                        Flexible(
+                          child: _buildPriceInput(),
+                          flex: 1,
+                        ),
+                        SizedBox(width: _spacing),
+                        Flexible(
+                          child: _buildStockInput(),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    ProductImage(
+                      callBack,
+                      _product.image,
                     ),
                   ],
                 ),
-                ProductImage(
-                  callBack,
-                  _product.image,
-                ),
-              ],
+              ),
             ),
-          ),
-        ));
+          ));
+    
   }
 
   callBack(File? imageFile) {
@@ -125,6 +128,7 @@ class _ManagementPageState extends State<ManagementPage> {
       );
 
   TextFormField _buildNameInput() => TextFormField(
+    initialValue: _product.name,
         decoration: inputStyle('name'),
         onSaved: (value) {
           _product.name = value!.isNotEmpty ? value : '--';
@@ -132,6 +136,7 @@ class _ManagementPageState extends State<ManagementPage> {
       );
 
   TextFormField _buildPriceInput() => TextFormField(
+    initialValue: _product.price.toString(),
         decoration: inputStyle('price'),
         keyboardType: TextInputType.number,
         onSaved: (value) {
@@ -144,6 +149,7 @@ class _ManagementPageState extends State<ManagementPage> {
       );
 
   TextFormField _buildStockInput() => TextFormField(
+    initialValue: _product.stock.toString(),
         decoration: inputStyle('stock'),
         keyboardType: TextInputType.number,
         onSaved: (value) {
