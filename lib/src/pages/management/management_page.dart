@@ -73,6 +73,9 @@ class _ManagementPageState extends State<ManagementPage> {
                       callBack,
                       _product.image,
                     ),
+                    SizedBox(
+                      height: 80,
+                    ),
                   ],
                 ),
               ),
