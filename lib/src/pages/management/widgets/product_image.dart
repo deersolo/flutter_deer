@@ -110,7 +110,7 @@ class _ProductImageState extends State<ProductImage> {
         children: <Widget>[
           buildListTile(
             Icons.photo_library,
-            "Choose from photo library",
+            "Choose from photo gallery",
             ImageSource.gallery,
           ),
           buildListTile(
@@ -127,9 +127,9 @@ class _ProductImageState extends State<ProductImage> {
     _picker
         .getImage(
       source: imageSource,
-      imageQuality: 70,
-      maxHeight: 500,
-      maxWidth: 500,
+      imageQuality: 100,
+      maxHeight: 1000,
+      maxWidth: 1000,
     )
         .then((file) {
       if (file != null) {

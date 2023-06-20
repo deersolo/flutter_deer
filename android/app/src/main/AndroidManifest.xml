@@ -3,8 +3,9 @@
     package="com.deersolo.mystock.deersolo">
    <application
         android:requestLegacyExternalStorage="true"
-        android:label="deersolo"
+        android:label="Deersolo"
         android:name="${applicationName}"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:icon="@mipmap/ic_launcher">
 
         <activity
@@ -48,6 +49,9 @@
     </queries>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.LIBRARY" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 </manifest>
